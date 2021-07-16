@@ -1,0 +1,26 @@
+.table {
+  width: 100%;
+}
+
+.item {
+  padding: 10px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid #DEE5EB;
+  color: #1F232E;
+  transition: background-color .1s ease-out;
+}
+
+.item:hover {
+  background-color: #eee;
+}
+
+.first {
+  width: 172px;
+  text-align: left;
+}
+
+.header-item {
+  background: rgba(240, 242, 244, 0.5);
+  color: #7B8395;
+}

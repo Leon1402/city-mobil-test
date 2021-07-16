@@ -1,0 +1,30 @@
+.filter {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.input {
+  width: 100%;
+  margin-right: 8px;
+  padding: 13px 18px;
+  background: rgba(240, 242, 244, 0.5);
+  border: 1px solid #DEE5EB;
+  box-shadow: inset -1px 0px 0px rgba(198, 209, 221, 0.5);
+}
+
+.button {
+  width: 171px;
+  padding: 13px;
+  background: #7B8395;
+  font-weight: 500;
+  color: #fff;
+}
+
+.find-button {
+  margin-right: 5px;
+}
+
+.button-disabled {
+  opacity: .5;
+  pointer-events: none;
+}

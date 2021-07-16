@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Filter } from './Filter';
+import { useCars } from './hooks/useCars';
+import { Table } from './Table';
 
 function App() {
+  const [cars, carstype] = useCars()
+
+  const [filteredCars, setFilteredCars] = useState([])
+
+  useEffect(() => {
+    setFilteredCars(cars)
+  }, [cars])
+
+  if (!cars) return null
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className='header'>
+        header
       </header>
+      <main className='main'>
+        <div className='sidebar'>sidebar</div>
+        <div className='block'>
+          <Filter cars={cars} setFilteredCars={setFilteredCars}/>
+          <Table cars={filteredCars} carsType={carstype} />
+        </div>
+      </main>
+      <footer className='footer'>Footer</footer>
     </div>
   );
 }
