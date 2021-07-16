@@ -15,12 +15,12 @@
   background-color: #eee;
 }
 
-.first {
-  width: 172px;
-  text-align: left;
-}
-
 .header-item {
   background: rgba(240, 242, 244, 0.5);
   color: #7B8395;
+}
+
+.item:first-child {
+  width: 172px;
+  text-align: left;
 }

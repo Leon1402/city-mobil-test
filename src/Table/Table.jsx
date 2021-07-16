@@ -1,106 +1,61 @@
-import React, { useEffect, useMemo, useState } from 'react'
 import './Table.css';
-import { nanoid } from 'nanoid'
 import { useTable, useSortBy } from 'react-table'
 
-export const Table = ({ cars, carsType }) => {
-  // const columns = useMemo(
-  //   () => [
-  //     {
-  //       Header: 'Марка и модель',
-  //       accessor: 'MarkModel',
-  //     },
-  //     ...carsType.map((item) => (
-  //       {
-  //         Header: item,
-  //         accessor: item,
-  //       }
-  //     ))
-  //   ]
-  // )
-
-  // const {
-  //   getTableProps,
-  //   getTableBodyProps,
-  //   headerGroups,
-  //   rows,
-  //   prepareRow,
-  // } = useTable(
-  //   {
-  //     columns,
-  //     cars,
-  //   },
-  //   useSortBy
-  // )
-
-  
-
-  const [sortedCars, setSortedCars] = useState(cars)
-
-  useEffect(() => {
-    setSortedCars(cars)
-  }, [cars])
-
-  const headerHandler = (e) => {
-    if (e.target.textContent === 'Марка и модель') {
-      setSortedCars([...cars.sort((a, b) => {
-        if (`${a.mark} ${a.model}` > `${b.mark} ${b.model}`) {
-          return 1
-        }
-        if (`${a.mark} ${a.model}` < `${b.mark} ${b.model}`) {
-          return -1
-        }
-        return 0;
-      })])
-    } else {
-      carsType.forEach((item) => {
-        if (item === e.target.textContent) {
-          setSortedCars([...cars.sort((a, b) => {
-            if (`'${a.tariffs[item].year}'` < `'${b.tariffs[item].year}'`) {
-              return 1
-            }
-            if (`'${a.tariffs[item].year}'` > `'${b.tariffs[item].year}'`) {
-              return -1
-            }
-            return 0;
-          })])
-        }
-      })
-    }
-  }
-
+export const Table = ({ cars, columns }) => {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data: cars,
+    },
+    useSortBy
+  )
 
   return (
-    <table className="table">
+    <table {...getTableProps()} className='table'>
       <thead>
-        <tr className='row' onClick={headerHandler}>
-          <th className='item header-item first'>Марка и модель</th>
-          {
-            carsType.map((item, index) => (
-              <th className='item header-item' key={nanoid()}>{item}</th>
-            ))
-          }
-        </tr>
+        {headerGroups.map(headerGroup => (
+          <tr className='row' {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th className='item header-item' {...column.getHeaderProps(column.getSortByToggleProps())}>
+                {column.render('Header')}
+                <span>
+                  {column.isSorted
+                    ? column.isSortedDesc
+                      ? ` ∨`
+                      : ` ∧`
+                    : ''}
+                </span>
+              </th>
+            ))}
+          </tr>
+        ))}
       </thead>
-      <tbody>
+
+      <tbody {...getTableBodyProps()}>
         {
-          sortedCars.map((car, index) => {
+          rows.map(row => {
+            prepareRow(row)
             return (
-              <tr className='row' key={nanoid()}>
-                <td className='item first'>{`${car.mark} ${car.model}`}</td>
+              <tr className='row' {...row.getRowProps()}>
                 {
-                  Object.values(car.tariffs).map((item, index) => {
-                    return <td className='item' key={nanoid()}>{item.year}</td>
-                  })
-                }
+                  row.cells.map(cell => {
+                    return (
+                      <td className='item' {...cell.getCellProps()}>
+                        {
+                          cell.render('Cell')}
+                      </td>
+                    )
+                  })}
               </tr>
             )
-          })
-        }
-        <tr>
-        </tr>
+          })}
       </tbody>
-
-    </table>
+    </table >
   )
 }
