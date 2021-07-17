@@ -1,7 +1,7 @@
 import './Table.css';
 import { useTable, useSortBy } from 'react-table'
 
-export const Table = ({ cars, columns }) => {
+export const Table = ({ cars, columns, setSelectCar }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -15,6 +15,15 @@ export const Table = ({ cars, columns }) => {
     },
     useSortBy
   )
+
+  const selectCar = (e) => {
+    if (!isNaN(e.target.textContent)) {
+      const model = e.target.parentNode.firstChild.textContent;
+      const year =  e.target.textContent;
+      setSelectCar({model, year})
+    }
+    // setSelectCar()
+  }
 
   return (
     <table {...getTableProps()} className='table'>
@@ -37,7 +46,7 @@ export const Table = ({ cars, columns }) => {
         ))}
       </thead>
 
-      <tbody {...getTableBodyProps()}>
+      <tbody {...getTableBodyProps()} onClick={selectCar}>
         {
           rows.map(row => {
             prepareRow(row)

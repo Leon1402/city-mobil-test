@@ -3,9 +3,11 @@ import './App.css';
 import { Filter } from './Filter';
 import { useCars } from './hooks/useCars';
 import { Table } from './Table';
+import { SelectedCar } from './SelectedCar';
 
 function App() {
   const [cars, carstype] = useCars()
+  const [selectCar, setSelectCar] = useState()
 
   //Формирование столбцов таблицы
   const columns = useMemo(
@@ -39,10 +41,12 @@ function App() {
         header
       </header>
       <main className='main'>
+
         <div className='sidebar'>sidebar</div>
         <div className='block'>
-          <Filter cars={cars} setFilteredCars={setFilteredCars}/>
-          <Table cars={filteredCars} columns={columns} />
+          <Filter cars={cars} setFilteredCars={setFilteredCars} />
+          <Table cars={filteredCars} columns={columns} setSelectCar={setSelectCar}/>
+          <SelectedCar selectCar={selectCar}/>
         </div>
       </main>
       <footer className='footer'>Footer</footer>

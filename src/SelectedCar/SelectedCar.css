@@ -1,0 +1,10 @@
+.selected-car {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7B8395;
+  background-color: rgba(240, 242, 244, 0.5);
+  border: 1px solid #DEE5EB;
+  box-shadow: inset -1px 0px 0px rgba(198, 209, 221, 0.5);
+}
