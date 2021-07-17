@@ -16,6 +16,7 @@ export const Table = ({ cars, columns, setSelectCar }) => {
     useSortBy
   )
 
+  //Выбор машины для вывода внизу таблицы
   const selectCar = (e) => {
     if (!isNaN(e.target.textContent)) {
       const model = e.target.parentNode.firstChild.textContent;
